@@ -6,13 +6,13 @@ const PORT = 5000;
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static('server/public'));
 
-
+let inputvalues= {};
 let asnwer;
 let pastHistory = [];
 
 app.post('/calculator', (req,res) => {
     console.log('POST //calculator');
-    let inputvalues = req.body;
+    inputvalues = req.body;
     console.log(inputvalues);
     res.sendStatus(201);
   });
@@ -38,7 +38,7 @@ let entireCalculation = {
     input1: input1,
     symbols: symbols,
     input3: input3,
-    asnwer: asnwer:
+    asnwer: asnwer
 
 }
 

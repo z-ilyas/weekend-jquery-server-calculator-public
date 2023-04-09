@@ -14,11 +14,13 @@ function captureInput(event) {
     event.preventDefault();
 
 let symbols;
+let inputNumber1 = $('#first-number-input').val();
+let inputNumber2 = $('#last-number-input').val();
 
 let inputValues = {
-    input1: $('#first-number-input').val(),
+    input1: inputNumber1,
     input2: symbols,
-    input3: $('#last-number-input').val()
+    input3: inputNumber2
 }
 console.log(inputValues);
 
@@ -32,14 +34,28 @@ $.ajax({
 }
 
 function calculationHistory() {
-    
+    $.ajax({
+        method: 'GET',
+        url: '/calculator',
+      }).then(function(responseGet){ 
+        let asnwer = responseGet[responseGet.length -1].asnwer
+
+        $('#past-calculations').empty();
+
+        for (let i = 0; i < responseGet.length; i++) {
+          $('#Answer').text(asnwer);
+          $('#past-calculations"').append(`
+          <li>${responseGet[i].input1} ${responseGet[i].symbols} ${responseGet[i].input3} ${responseGet[i].asnwer}</li>
+          `)
+        }
+});
 }
 
 
 function addition() {
     symbols= 'plus';
 }
-function divition() {
+function subtraction() {
     symbols = 'minus';
 }
 function multiplication() {
@@ -47,5 +63,10 @@ function multiplication() {
 }
 function divition(params) {
     symbols = 'divide';
+}
+
+function clear() {
+    $('#first-number-input').val('');
+    $('#last-number-input').val('');
 }
  
