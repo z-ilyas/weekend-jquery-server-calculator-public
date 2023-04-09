@@ -6,48 +6,49 @@ const PORT = 5000;
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static('server/public'));
 
-let inputvalues= {};
-let asnwer;
+
+let answer;
 let pastHistory = [];
 
 app.post('/calculator', (req,res) => {
     console.log('POST //calculator');
-    inputvalues = req.body;
+    let inputvalues = req.body;
     console.log(inputvalues);
+    let input1 = inputvalues.input1;
+    let symbols = inputvalues.input2;
+    let input3 = inputvalues.input3;
+    math(input1, symbols, input3);
+    console.log(pastHistory);
     res.sendStatus(201);
-  });
+});
 
-  let input1 = inputvalues.input1;
-  let symbols = inputvalues.input2;
-  let input3 = inputvalues.input3;
-
-  console.log(input1, symbols, input3);
-
-
-if(symbols === 'plus'){
-    asnwer = input1 + input3
-} else if(symbols  === 'minus'){
-    asnwer = input1 - input3
-} else if(symbols  === 'times'){
-    asnwer = input1 * input3
-} else if(symbols  === 'divide'){
-    asnwer = input1 / input3
-}
-
-let entireCalculation = {
-    input1: input1,
-    symbols: symbols,
-    input3: input3,
-    asnwer: asnwer
-
-}
-
-pastHistory.push(entireCalculation);
 
 app.get('/calculator', (req,res) => {
     console.log('GET /calculator');
-    res.send(pastHistory)
-});
+    let calculationObject = {
+        answer: answer,
+        pastHistory: pastHistory
+    };
+    res.send(calculationObject);
+})
+
+
+function math(number1, symbols, number2) {
+    if(symbols === 'plus'){
+        console.log('addition test');
+        answer = number1 + number2
+        pastHistory.push(`${number1} + ${number2} = ${answer}`);
+    } else if(symbols  === 'minus'){
+        answer = number1 - number2
+        pastHistory.push(`${number1} - ${number2} = ${answer}`);
+    } else if(symbols  === 'times'){
+        answer = number1 * number2
+        pastHistory.push(`${number1} * ${number2} = ${answer}`);
+    } else if(symbols  === 'divide'){
+        answer = number1 / number2
+        pastHistory.push(`${number1} / ${number2} = ${answer}`);
+    }
+}
 
 
 app.listen(PORT, () => {
