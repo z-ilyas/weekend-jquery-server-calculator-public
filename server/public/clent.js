@@ -3,42 +3,49 @@ $(document).ready(onReady);
 function onReady() {
     console.log('client side');
     $('#totals-btn').on('click', captureInput);
+    $('#plus-btn').on('click',  addition)
+    $('#minus-btn').on('click', subtraction)
+    $('#times-btn').on('click', multiplication)
+    $('#divide-btn').on('click', divition)
+    $('#clear-btn"').on('click', clear)
 }
 
 function captureInput(event) {
     event.preventDefault();
 
+let symbols;
+
 let inputValues = {
     input1: $('#first-number-input').val(),
-    input2: $('#last-number-input').val(),
-    input3: symbols()
+    input2: symbols,
+    input3: $('#last-number-input').val()
 }
+console.log(inputValues);
 
 $.ajax({
     method: 'POST',
     url: '/calculator',
     data: inputValues
   }).then(function(responsePost){
-    $.ajax({
-        method: 'GET',
-        url: '/calculator',
-    }).then(function(responseGet){
-      console.log(responseGet);
-      $('').append(`
-        
-      `)
-    });
+    calculationHistory();
   });
 }
 
-function symbols() {
-if($('#plus-btn').on('click')){
-    return 'plus';
-}else if($('#minus-btn').on('click')){
-    return 'minus';
-}else if($('#times-btn').on('click')){
-    return 'times';
-}else if($('#divide-btn').on('click')){
-    return 'divide';
+function calculationHistory() {
+    
 }
+
+
+function addition() {
+    symbols= 'plus';
 }
+function divition() {
+    symbols = 'minus';
+}
+function multiplication() {
+    symbols = 'times';
+}
+function divition(params) {
+    symbols = 'divide';
+}
+ 
