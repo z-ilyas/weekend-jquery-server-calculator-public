@@ -3,11 +3,11 @@ $(document).ready(onReady);
 function onReady() {
     console.log('client side');
     $('#totals-btn').on('click', captureInput);
-    $('#plus-btn').on('click',  addition)
-    $('#minus-btn').on('click', subtraction)
-    $('#times-btn').on('click', multiplication)
-    $('#divide-btn').on('click', divition)
-    $('#clear-btn"').on('click', clear)
+    $('#plus-btn').on('click',  addition);
+    $('#minus-btn').on('click', subtraction);
+    $('#times-btn').on('click', multiplication);
+    $('#divide-btn').on('click', divition);
+    $('#clear-btn').on('click', clear);
 }
 
 function captureInput(event) {
@@ -52,16 +52,20 @@ function calculationHistory() {
 }
 
 
-function addition() {
+function addition(event) {
+    event.preventDefault();
     symbols= 'plus';
 }
-function subtraction() {
+function subtraction(event) {
+    event.preventDefault();
     symbols = 'minus';
 }
-function multiplication() {
+function multiplication(event) {
+    event.preventDefault();
     symbols = 'times';
 }
-function divition(params) {
+function divition(event) {
+    event.preventDefault();
     symbols = 'divide';
 }
 
